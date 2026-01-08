@@ -48,7 +48,7 @@
 
 - [x] Initialiser le repository git
   - [x] `git init`
-  - [ ] Commit initial
+  - [x] Commit initial
 
 ### 1.2 Configuration et dépendances
 
