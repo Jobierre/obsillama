@@ -112,26 +112,28 @@
 
 ### 1.4 Modèles de données
 
-- [ ] Créer `obsillama/models/note.py`
-  - [ ] Modèle `Note` avec tous les champs (id, file_path, title, content, etc.)
-  - [ ] Validation des types
-  - [ ] Méthodes helper (to_dict, from_dict)
+- [x] Créer `obsillama/models/note.py`
+  - [x] Modèle `Note` avec tous les champs (id, file_path, title, content, etc.)
+  - [x] Validation des types
+  - [x] Méthodes helper (to_dict, from_dict, get_all_tags, has_tag)
 
-- [ ] Créer `obsillama/models/category.py`
-  - [ ] Modèle `Category` avec hiérarchie (parent/enfants)
-  - [ ] Champs pour review_status, confidence, etc.
+- [x] Créer `obsillama/models/category.py`
+  - [x] Modèle `Category` avec hiérarchie (parent/enfants)
+  - [x] Champs pour review_status, confidence, etc.
+  - [x] Méthodes (approve, reject, update_stats, etc.)
 
-- [ ] Créer `obsillama/models/embedding.py`
-  - [ ] Modèle `Embedding` pour les vecteurs
+- [x] Créer `obsillama/models/embedding.py`
+  - [x] Modèle `Embedding` pour les vecteurs
+  - [x] Méthodes de calcul (cosine_similarity, euclidean_distance, normalize)
 
-- [ ] Créer `obsillama/models/graph_entity.py`
-  - [ ] Modèle `GraphEntity` pour entités GraphRAG
-  - [ ] Modèle `GraphRelationship` pour relations
-  - [ ] Modèle `GraphCommunity` pour communautés
+- [x] Créer `obsillama/models/graph_entity.py`
+  - [x] Modèle `GraphEntity` pour entités GraphRAG
+  - [x] Modèle `GraphRelationship` pour relations
+  - [x] Modèle `GraphCommunity` pour communautés
 
-- [ ] Tester les modèles
-  - [ ] Créer des instances de test
-  - [ ] Vérifier la validation Pydantic
+- [x] Tester les modèles
+  - [x] Créer des instances de test (25 tests pytest)
+  - [x] Vérifier la validation Pydantic (tous passent)
 
 ### 1.5 Client Ollama (🔴 CRITIQUE)
 

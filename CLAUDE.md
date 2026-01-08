@@ -8,7 +8,7 @@
 mgrep "ta question en langage naturel" --store "nom-projet" -a -m <nombre>
 ```
 
-Ici le store est "NOM-DU-PROJET"
+Ici le store est "obsillama"
 
 ## Paramètres essentiels
 
