@@ -52,20 +52,20 @@
 
 ### 1.2 Configuration et dépendances
 
-- [ ] Créer `requirements.txt` avec toutes les dépendances
+- [x] Créer `requirements.txt` avec toutes les dépendances
   ```
   graphrag==2.7.0
-  lancedb==0.15.0
-  ollama==0.4.2
-  click==8.1.7
-  rich==13.7.1
-  textual==0.85.0
-  ruamel.yaml==0.18.6
-  python-frontmatter==1.1.0
-  pydantic==2.9.2
-  pandas==2.2.2
-  numpy==1.26.4
-  scikit-learn==1.5.2
+  lancedb>=0.17.0 (updated from 0.15.0 for compatibility)
+  ollama>=0.4.2
+  click>=8.1.7
+  rich>=13.7.1
+  textual>=0.85.0
+  ruamel.yaml>=0.18.6
+  python-frontmatter>=1.1.0
+  pydantic>=2.9.2
+  pandas>=2.2.3 (updated from 2.2.2 for graphrag compatibility)
+  numpy>=1.26.4
+  scikit-learn>=1.5.2
   igraph==0.11.8
   langchain==0.3.15
   tenacity==9.0.0
@@ -74,19 +74,19 @@
   pathlib2==2.3.7
   ```
 
-- [ ] Créer `pyproject.toml` pour la configuration du projet
+- [x] Créer `pyproject.toml` pour la configuration du projet
 
-- [ ] Créer `setup.py` pour l'installation du package
+- [x] Créer `setup.py` pour l'installation du package
 
-- [ ] Installer les dépendances dans un environnement virtuel
+- [x] Installer les dépendances dans un environnement virtuel
   ```bash
-  python -m venv venv
+  python3.11 -m venv venv  # Used Python 3.11 for graphrag compatibility
   source venv/bin/activate
   pip install -r requirements.txt
   ```
 
-- [ ] Tester l'installation des dépendances
-  - [ ] Vérifier que toutes les librairies s'importent correctement
+- [x] Tester l'installation des dépendances
+  - [x] Vérifier que toutes les librairies s'importent correctement
 
 ### 1.3 Configuration système
 
