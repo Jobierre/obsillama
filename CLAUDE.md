@@ -78,7 +78,7 @@ Quand tu lances un subagent Explore, copie-colle les instructions sur mgrep de c
 			- ``--reporter=list``
 - Si les tests échoue en boucle, n'oublie pas le proverbe :
 	- ``soigne la cause, pas le symptôme !``
-
+- Les tests python doivent être lancés avec pytest.
 - Prend ton temps, je veux que lorsque tu finis une tâche, tu devras la cocher (dans tasks.md). Je ne veux que tu coche en masse. 
 - Exécute les tâches une par une avec validation après chaque tâche
 - vérifier si les fichiers suivants sont existants. Sinon, tu devras les créer en lien avec le projet:

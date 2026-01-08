@@ -1,0 +1,189 @@
+# ObsIllama - Configuration principale
+# =====================================
+
+# Configuration du vault Obsidian
+vault:
+  # Chemin absolu vers le vault Obsidian
+  path: "/Users/jordanmirmand/Documents/Obsidian and CO/obsinote"
+
+  # Chemin pour les backups avant modification
+  backup_path: ".obsillama_backups"
+
+  # Dossiers à exclure du scan
+  exclude_folders:
+    - ".obsidian"
+    - ".trash"
+    - "Templates"
+
+# Configuration Ollama (LLM local)
+ollama:
+  # URL de base de l'API Ollama
+  base_url: "http://localhost:11434"
+
+  # Modèles à utiliser
+  models:
+    # Modèle pour la génération de texte (catégories, descriptions, etc.)
+    generation: "mistral"
+
+    # Modèle pour les embeddings vectoriels
+    embedding: "nomic-embed-text"
+
+  # Paramètres de génération
+  params:
+    # Température (0.0 = déterministe, 1.0 = créatif)
+    temperature: 0.3
+
+    # Nombre maximum de tokens à générer
+    max_tokens: 2000
+
+    # Top-p sampling
+    top_p: 0.9
+
+# Configuration GraphRAG
+graphrag:
+  # Algorithme de détection de communautés
+  community_algorithm: "leiden"
+
+  # Résolution du clustering (plus élevé = plus de communautés)
+  resolution: 1.0
+
+  # Taille minimale d'une communauté
+  min_community_size: 3
+
+  # Types d'entités à extraire
+  entity_types:
+    - "technology"      # Technologies (Docker, Python, etc.)
+    - "concept"         # Concepts abstraits
+    - "tool"           # Outils et logiciels
+    - "person"         # Personnes et auteurs
+    - "organization"   # Organisations et entreprises
+    - "project"        # Projets
+    - "methodology"    # Méthodologies et frameworks
+
+# Configuration de la catégorisation
+categorization:
+  # Nombre de catégories cibles à générer
+  target_count: 20
+
+  # Nombre minimum de notes par catégorie
+  min_notes_per_category: 5
+
+  # Seuils de confiance
+  thresholds:
+    # Seuil minimum pour assigner une note à une catégorie
+    assignment_confidence: 0.7
+
+    # Seuil pour suggérer une fusion de catégories
+    merge_similarity: 0.85
+
+    # Seuil pour créer une sous-catégorie
+    subcategory_threshold: 20  # notes
+
+  # Préfixe pour les tags générés
+  tag_prefix: "AI-Category-"
+
+  # Langue des prompts et catégories
+  language: "fr"
+
+# Configuration du mode incrémental
+incremental:
+  # Activer le tracking des changements
+  enabled: true
+
+  # Fréquence de vérification des nouvelles notes (en jours)
+  check_interval_days: 7
+
+  # Auto-amélioration automatique (ou manuel)
+  auto_ameliorate: false
+
+  # Seuil pour proposer un re-clustering complet
+  recluster_threshold: 100  # nouvelles notes
+
+# Configuration du frontmatter writer
+frontmatter:
+  # Préserver la structure YAML existante
+  preserve_structure: true
+
+  # Préserver les commentaires YAML
+  preserve_comments: true
+
+  # Champs à ajouter/mettre à jour
+  fields_to_add:
+    - "ai_categories"      # Liste des catégories assignées
+    - "ai_confidence"      # Score de confiance
+    - "ai_processed_date"  # Date de traitement
+    - "ai_version"         # Version d'ObsIllama utilisée
+
+  # Créer un backup avant chaque modification
+  backup_before_write: true
+
+  # Mode dry-run par défaut (prévisualisation sans modification)
+  dry_run_default: false
+
+# Configuration LanceDB
+lancedb:
+  # Chemin vers la base de données
+  path: "data/lancedb"
+
+  # Type d'index vectoriel
+  index_type: "IVF_PQ"
+
+  # Paramètres de l'index
+  index_params:
+    # Nombre de partitions pour IVF
+    num_partitions: 32
+
+    # Sous-vecteurs pour PQ
+    num_sub_vectors: 16
+
+  # Dimension des embeddings (nomic-embed-text)
+  embedding_dim: 768
+
+# Configuration du traitement parallèle
+processing:
+  # Nombre de workers pour le traitement parallèle
+  num_workers: 4
+
+  # Taille des batchs pour les embeddings
+  embedding_batch_size: 32
+
+  # Taille des batchs pour le traitement des notes
+  note_batch_size: 50
+
+  # Stratégie d'échantillonnage par défaut
+  sampling:
+    # Stratégie: "random", "stratified", "all"
+    strategy: "stratified"
+
+    # Pourcentage d'échantillonnage (15% par défaut)
+    percentage: 15
+
+# Configuration du logging
+logging:
+  # Niveau de log: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: "INFO"
+
+  # Fichier de log
+  file: "logs/obsillama.log"
+
+  # Rotation des logs
+  rotation:
+    # Taille maximale du fichier (en MB)
+    max_size_mb: 10
+
+    # Nombre de fichiers à conserver
+    backup_count: 5
+
+  # Format des logs
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+  # Afficher les logs dans la console
+  console: true
+
+# Métadonnées de configuration
+metadata:
+  # Version du schéma de configuration
+  config_version: "0.1.0"
+
+  # Date de création
+  created_at: "2026-01-08"

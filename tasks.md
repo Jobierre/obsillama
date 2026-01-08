@@ -90,25 +90,25 @@
 
 ### 1.3 Configuration système
 
-- [ ] Créer `config/config.yaml` avec la configuration par défaut
-  - [ ] Section `vault` (path, backup_path, exclude_folders)
-  - [ ] Section `ollama` (base_url, models, params)
-  - [ ] Section `graphrag` (algorithmes, entity_types)
-  - [ ] Section `categorization` (target_count, thresholds)
-  - [ ] Section `incremental` (tracking, auto_ameliorate)
-  - [ ] Section `frontmatter` (preserve, fields_to_add)
-  - [ ] Section `lancedb` (path, index_type)
-  - [ ] Section `processing` (workers, batch_size)
-  - [ ] Section `logging` (level, file)
+- [x] Créer `config/config.yaml` avec la configuration par défaut
+  - [x] Section `vault` (path, backup_path, exclude_folders)
+  - [x] Section `ollama` (base_url, models, params)
+  - [x] Section `graphrag` (algorithmes, entity_types)
+  - [x] Section `categorization` (target_count, thresholds)
+  - [x] Section `incremental` (tracking, auto_ameliorate)
+  - [x] Section `frontmatter` (preserve, fields_to_add)
+  - [x] Section `lancedb` (path, index_type)
+  - [x] Section `processing` (workers, batch_size)
+  - [x] Section `logging` (level, file)
 
-- [ ] Créer `obsillama/config/settings.py`
-  - [ ] Modèle Pydantic pour la configuration
-  - [ ] Chargement du fichier YAML
-  - [ ] Validation des paramètres
-  - [ ] Gestion des variables d'environnement
+- [x] Créer `obsillama/config/settings.py`
+  - [x] Modèle Pydantic pour la configuration
+  - [x] Chargement du fichier YAML
+  - [x] Validation des paramètres
+  - [x] Gestion des variables d'environnement
 
-- [ ] Tester le chargement de la configuration
-  - [ ] Script de test pour vérifier la lecture du config.yaml
+- [x] Tester le chargement de la configuration
+  - [x] Script de test pour vérifier la lecture du config.yaml
 
 ### 1.4 Modèles de données
 
