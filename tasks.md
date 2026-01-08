@@ -21,33 +21,33 @@
 
 ### 1.1 Structure du projet
 
-- [ ] Créer la structure des dossiers du projet
-  - [ ] `obsillama/` (package principal)
-  - [ ] `obsillama/cli/`
-  - [ ] `obsillama/core/`
-  - [ ] `obsillama/llm/`
-  - [ ] `obsillama/llm/prompts/`
-  - [ ] `obsillama/storage/`
-  - [ ] `obsillama/models/`
-  - [ ] `obsillama/utils/`
-  - [ ] `obsillama/config/`
-  - [ ] `data/lancedb/`
-  - [ ] `data/categories/`
-  - [ ] `data/cache/`
-  - [ ] `config/`
-  - [ ] `logs/`
-  - [ ] `tests/`
-  - [ ] `docs/`
+- [x] Créer la structure des dossiers du projet
+  - [x] `obsillama/` (package principal)
+  - [x] `obsillama/cli/`
+  - [x] `obsillama/core/`
+  - [x] `obsillama/llm/`
+  - [x] `obsillama/llm/prompts/`
+  - [x] `obsillama/storage/`
+  - [x] `obsillama/models/`
+  - [x] `obsillama/utils/`
+  - [x] `obsillama/config/`
+  - [x] `data/lancedb/`
+  - [x] `data/categories/`
+  - [x] `data/cache/`
+  - [x] `config/`
+  - [x] `logs/`
+  - [x] `tests/`
+  - [x] `docs/`
 
-- [ ] Créer les fichiers `__init__.py` pour tous les packages Python
+- [x] Créer les fichiers `__init__.py` pour tous les packages Python
 
-- [ ] Créer `.gitignore`
-  - [ ] Ignorer `data/`, `logs/`, `*.pyc`, `__pycache__/`, `.env`, etc.
+- [x] Créer `.gitignore`
+  - [x] Ignorer `data/`, `logs/`, `*.pyc`, `__pycache__/`, `.env`, etc.
 
-- [ ] Créer `.dockerignore` (si besoin Docker plus tard)
+- [x] Créer `.dockerignore` (si besoin Docker plus tard)
 
-- [ ] Initialiser le repository git
-  - [ ] `git init`
+- [x] Initialiser le repository git
+  - [x] `git init`
   - [ ] Commit initial
 
 ### 1.2 Configuration et dépendances
