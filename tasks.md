@@ -187,25 +187,25 @@
 
 ### 1.7 LanceDB Manager (🔴 CRITIQUE)
 
-- [ ] Créer `obsillama/storage/lancedb_manager.py`
-  - [ ] Classe `LanceDBManager` avec connexion à LanceDB
-  - [ ] Méthode `create_notes_table()` avec schéma complet
-  - [ ] Méthode `create_categories_table()`
-  - [ ] Méthode `create_entities_table()`
-  - [ ] Méthode `create_communities_table()`
-  - [ ] Méthode `insert_notes(notes: List[Note])`
-  - [ ] Méthode `insert_categories(categories: List[Category])`
-  - [ ] Méthode `get_note_by_id(note_id: str)` → Note
-  - [ ] Méthode `get_all_notes()` → List[Note]
-  - [ ] Méthode `search_notes_by_embedding(query_embedding, limit=10)`
-  - [ ] Création d'index vectoriel IVF_PQ
+- [x] Créer `obsillama/storage/lancedb_manager.py`
+  - [x] Classe `LanceDBManager` avec connexion à LanceDB
+  - [x] Méthode `create_notes_table()` avec schéma complet
+  - [x] Méthode `create_categories_table()`
+  - [x] Méthode `create_entities_table()`
+  - [x] Méthode `create_communities_table()`
+  - [x] Méthode `insert_notes(notes: List[Note])`
+  - [x] Méthode `insert_categories(categories: List[Category])`
+  - [x] Méthode `get_note_by_id(note_id: str)` → Note
+  - [x] Méthode `get_all_notes()` → List[Note]
+  - [x] Méthode `search_notes_by_embedding(query_embedding, limit=10)`
+  - [x] Création d'index vectoriel IVF_PQ
 
-- [ ] Tester LanceDB
-  - [ ] Créer les tables dans `data/lancedb/`
-  - [ ] Insérer 5 notes de test
-  - [ ] Récupérer une note par ID
-  - [ ] Recherche vectorielle avec embedding test
-  - [ ] Vérifier la persistance (fermer/rouvrir DB)
+- [x] Tester LanceDB
+  - [x] Créer les tables dans `data/lancedb/`
+  - [x] Insérer 5 notes de test
+  - [x] Récupérer une note par ID
+  - [x] Recherche vectorielle avec embedding test
+  - [x] Vérifier la persistance (fermer/rouvrir DB)
 
 ---
 
