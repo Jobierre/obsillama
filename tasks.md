@@ -162,28 +162,28 @@
 
 ### 1.6 Scanner de notes (🔴 CRITIQUE)
 
-- [ ] Créer `obsillama/core/frontmatter_parser.py`
-  - [ ] Fonction `parse_frontmatter(content: str)` avec python-frontmatter
-  - [ ] Gestion des notes sans frontmatter
-  - [ ] Extraction du contenu sans YAML
-  - [ ] Gestion des erreurs de parsing
+- [x] Créer `obsillama/core/frontmatter_parser.py`
+  - [x] Fonction `parse_frontmatter(content: str)` avec python-frontmatter
+  - [x] Gestion des notes sans frontmatter
+  - [x] Extraction du contenu sans YAML
+  - [x] Gestion des erreurs de parsing
 
-- [ ] Créer `obsillama/core/note_scanner.py`
-  - [ ] Classe `NoteScanner`
-  - [ ] Méthode `scan_vault(vault_path, exclude_folders)` → liste de fichiers .md
-  - [ ] Méthode `parse_note(file_path)` → objet Note
-  - [ ] Méthode `scan_and_parse(sample_strategy, sample_size)` → liste Notes
-  - [ ] Support échantillonnage : random, stratified, all
-  - [ ] Détection backlinks `[[...]]`
-  - [ ] Calcul word_count
-  - [ ] Cache des notes parsées (JSON)
+- [x] Créer `obsillama/core/note_scanner.py`
+  - [x] Classe `NoteScanner`
+  - [x] Méthode `scan_vault(vault_path, exclude_folders)` → liste de fichiers .md
+  - [x] Méthode `parse_note(file_path)` → objet Note
+  - [x] Méthode `scan_and_parse(sample_strategy, sample_size)` → liste Notes
+  - [x] Support échantillonnage : random, stratified, all
+  - [x] Détection backlinks `[[...]]`
+  - [x] Calcul word_count
+  - [x] Cache des notes parsées (JSON)
 
-- [ ] Tester le scanner
-  - [ ] Test sur le vault réel : `/Users/jordanmirmand/Documents/Obsidian and CO/obsinote`
-  - [ ] Scanner 10 notes au hasard
-  - [ ] Vérifier le parsing du frontmatter
-  - [ ] Vérifier l'extraction du contenu
-  - [ ] Tester l'échantillonnage stratifié (15%)
+- [x] Tester le scanner
+  - [x] Test sur le vault réel : `/Users/jordanmirmand/Documents/Obsidian and CO/obsinote`
+  - [x] Scanner 10 notes au hasard
+  - [x] Vérifier le parsing du frontmatter
+  - [x] Vérifier l'extraction du contenu
+  - [x] Tester l'échantillonnage stratifié (15%)
 
 ### 1.7 LanceDB Manager (🔴 CRITIQUE)
 
