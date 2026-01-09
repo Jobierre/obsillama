@@ -137,28 +137,28 @@
 
 ### 1.5 Client Ollama (🔴 CRITIQUE)
 
-- [ ] Créer `obsillama/llm/ollama_client.py`
-  - [ ] Classe `OllamaClient` avec connexion à Ollama
-  - [ ] Méthode `generate()` pour génération de texte (mistral)
-  - [ ] Méthode `embed()` pour embeddings (nomic-embed-text)
-  - [ ] Méthode `embed_batch()` pour batch embeddings
-  - [ ] Retry logic avec tenacity (exponential backoff)
-  - [ ] Gestion d'erreurs et timeout
-  - [ ] Logging des appels API
+- [x] Créer `obsillama/llm/ollama_client.py`
+  - [x] Classe `OllamaClient` avec connexion à Ollama
+  - [x] Méthode `generate()` pour génération de texte (mistral)
+  - [x] Méthode `embed()` pour embeddings (nomic-embed-text)
+  - [x] Méthode `embed_batch()` pour batch embeddings
+  - [x] Retry logic avec tenacity (exponential backoff)
+  - [x] Gestion d'erreurs et timeout
+  - [x] Logging des appels API
 
-- [ ] Tester le client Ollama
-  - [ ] Test de connexion à Ollama (localhost:11434)
-  - [ ] Test génération avec mistral
+- [x] Tester le client Ollama
+  - [x] Test de connexion à Ollama (localhost:11434)
+  - [x] Test génération avec mistral
     ```python
     response = client.generate("Bonjour, comment vas-tu ?")
     ```
-  - [ ] Test embeddings avec nomic-embed-text
+  - [x] Test embeddings avec nomic-embed-text
     ```python
     embedding = client.embed("Test d'embedding en français")
     print(f"Dimension: {len(embedding)}")  # Devrait être 768
     ```
-  - [ ] Test batch embeddings (10 textes)
-  - [ ] Test retry sur échec simulé
+  - [x] Test batch embeddings (10 textes)
+  - [x] Test retry sur échec simulé
 
 ### 1.6 Scanner de notes (🔴 CRITIQUE)
 
