@@ -18,7 +18,7 @@ vault:
 # Configuration Ollama (LLM local)
 ollama:
   # URL de base de l'API Ollama
-  base_url: "http://localhost:11434"
+  base_url: "http://100.68.167.47:11434"
 
   # Modèles à utiliser
   models:
@@ -48,7 +48,7 @@ graphrag:
   resolution: 1.0
 
   # Taille minimale d'une communauté
-  min_community_size: 3
+  min_community_size: 2
 
   # Types d'entités à extraire
   entity_types:
@@ -63,7 +63,7 @@ graphrag:
 # Configuration de la catégorisation
 categorization:
   # Nombre de catégories cibles à générer
-  target_count: 20
+  target_count: 5
 
   # Nombre minimum de notes par catégorie
   min_notes_per_category: 5
@@ -77,7 +77,7 @@ categorization:
     merge_similarity: 0.85
 
     # Seuil pour créer une sous-catégorie
-    subcategory_threshold: 20  # notes
+    subcategory_threshold: 10  # notes
 
   # Préfixe pour les tags générés
   tag_prefix: "AI-Category-"
