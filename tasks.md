@@ -508,46 +508,46 @@
 
 ### 5.1 Frontmatter Writer (🔴 CRITIQUE)
 
-- [ ] Créer `obsillama/core/frontmatter_writer.py`
-  - [ ] Classe `FrontmatterWriter`
-  - [ ] Méthode `parse_note_file(file_path)` avec ruamel.yaml
-    - [ ] Préservation ordre, commentaires, quotes
-  - [ ] Méthode `update_frontmatter(file_path, categories, confidence)`
-    - [ ] Ajout tags AI-Category-*
-    - [ ] Ajout champs ai_categories, ai_confidence, ai_processed_date
-    - [ ] Merge avec tags existants
-  - [ ] Méthode `backup_note(file_path)` → backup path
-    - [ ] Copie dans `.obsillama_backups/YYYYMMDD_HHMMSS/`
-  - [ ] Méthode `apply_categories_to_note(note, categories, backup=True)`
-  - [ ] Gestion erreurs YAML invalide
+- [x] Créer `obsillama/core/frontmatter_writer.py`
+  - [x] Classe `FrontmatterWriter`
+  - [x] Méthode `parse_note_file(file_path)` avec ruamel.yaml
+    - [x] Préservation ordre, commentaires, quotes
+  - [x] Méthode `update_frontmatter(file_path, categories, confidence)`
+    - [x] Ajout tags AI-Category-*
+    - [x] Ajout champs ai_categories, ai_confidence, ai_processed_date
+    - [x] Merge avec tags existants
+  - [x] Méthode `backup_note(file_path)` → backup path
+    - [x] Copie dans `.obsillama_backups/YYYYMMDD_HHMMSS/`
+  - [x] Méthode `apply_categories_to_note(note, categories, backup=True)`
+  - [x] Gestion erreurs YAML invalide
 
-- [ ] Créer `obsillama/utils/yaml_utils.py`
-  - [ ] Fonctions helper pour manipulation YAML
-  - [ ] Validation frontmatter
+- [x] Créer `obsillama/utils/yaml_utils.py`
+  - [x] Fonctions helper pour manipulation YAML
+  - [x] Validation frontmatter
 
-- [ ] Tester le writer
-  - [ ] Créer note de test avec frontmatter
-  - [ ] Appliquer catégories
-  - [ ] Vérifier préservation structure YAML
-  - [ ] Vérifier backup créé
-  - [ ] Tester avec note sans frontmatter
-  - [ ] Tester rollback
+- [x] Tester le writer
+  - [x] Créer note de test avec frontmatter
+  - [x] Appliquer catégories
+  - [x] Vérifier préservation structure YAML
+  - [x] Vérifier backup créé
+  - [x] Tester avec note sans frontmatter
+  - [x] Tester rollback
 
 ### 5.2 Système de backup
 
-- [ ] Créer `obsillama/utils/file_utils.py`
-  - [ ] Classe `BackupManager`
-  - [ ] Méthode `create_backup_snapshot()` → timestamp
-  - [ ] Méthode `backup_file(file_path, snapshot_id)`
-  - [ ] Méthode `restore_backup(snapshot_id)`
-  - [ ] Méthode `list_backups()`
-  - [ ] Méthode `cleanup_old_backups(keep_last=10)`
+- [x] Créer `obsillama/utils/file_utils.py`
+  - [x] Classe `BackupManager`
+  - [x] Méthode `create_backup_snapshot()` → timestamp
+  - [x] Méthode `backup_file(file_path, snapshot_id)`
+  - [x] Méthode `restore_backup(snapshot_id)`
+  - [x] Méthode `list_backups()`
+  - [x] Méthode `cleanup_old_backups(keep_last=10)`
 
-- [ ] Tester le backup
-  - [ ] Créer plusieurs backups
-  - [ ] Lister les backups
-  - [ ] Restaurer un backup
-  - [ ] Tester cleanup (garder 10 derniers)
+- [x] Tester le backup
+  - [x] Créer plusieurs backups
+  - [x] Lister les backups
+  - [x] Restaurer un backup
+  - [x] Tester cleanup (garder 10 derniers)
 
 ### 5.3 Commande `apply`
 
