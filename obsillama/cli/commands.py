@@ -205,18 +205,20 @@ def cli(ctx: click.Context, config: Optional[Path], verbose: bool):
 
 
 # ============================================================================
-# Import des commandes (à ajouter dans les prochaines sections)
+# Import des commandes
 # ============================================================================
 
-# Les commandes seront importées ici quand on les créera :
-# from obsillama.cli.init import init
+from obsillama.cli.init import init
+
+# Enregistrer les commandes
+cli.add_command(init)
+
+# Les prochaines commandes seront ajoutées ici :
 # from obsillama.cli.scan import scan
 # from obsillama.cli.analyze import analyze
 # etc.
-
-# Et enregistrées comme ceci :
-# cli.add_command(init)
 # cli.add_command(scan)
+# cli.add_command(analyze)
 # etc.
 
 

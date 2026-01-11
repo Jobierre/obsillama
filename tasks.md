@@ -366,18 +366,25 @@
 
 ### 4.2 Commande `init`
 
-- [ ] Créer `obsillama/cli/init.py`
-  - [ ] Command Click `init`
-  - [ ] Paramètres : `--vault`, `--models`
-  - [ ] Création config.yaml interactif
-  - [ ] Test connexion Ollama
-  - [ ] Vérification accès vault
-  - [ ] Création dossiers data/
+- [x] Créer `obsillama/cli/init.py`
+  - [x] Command Click `init` avec décorateur pass_context
+  - [x] Paramètres : `--vault`, `--ollama-url`, `--generation-model`, `--embedding-model`, `--non-interactive`
+  - [x] Création config.yaml interactif avec ruamel.yaml
+  - [x] Test connexion Ollama avec httpx (timeout 5s)
+  - [x] Récupération liste des modèles Ollama via /api/tags
+  - [x] Vérification accès vault (exists + is_dir)
+  - [x] Création dossiers data/ (lancedb, categories, cache, logs)
+  - [x] Panel de bienvenue avec prérequis
+  - [x] 5 étapes avec print_step (1/5, 2/5, etc.)
+  - [x] Résumé final avec panel "Démarrage" et prochaines étapes
+  - [x] Gestion erreurs avec sys.exit(1)
+  - [x] Détection config.yaml existant avec confirmation
 
-- [ ] Tester `obsillama init`
-  - [ ] `obsillama init --vault "/Users/jordanmirmand/Documents/Obsidian and CO/obsinote"`
-  - [ ] Vérifier création config.yaml
-  - [ ] Vérifier connexion Ollama
+- [x] Tester `obsillama init`
+  - [x] `obsillama init --vault "/..." --non-interactive` (✓ fonctionne)
+  - [x] Vérifier création config.yaml avec toutes les sections (✓ validé)
+  - [x] Vérifier connexion Ollama avec 3 modèles trouvés (✓ validé)
+  - [x] Vérifier création 5 dossiers (config, data/lancedb, data/categories, data/cache, logs) (✓ validé)
 
 ### 4.3 Commande `scan`
 
