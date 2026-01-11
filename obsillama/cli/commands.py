@@ -211,17 +211,17 @@ def cli(ctx: click.Context, config: Optional[Path], verbose: bool):
 from obsillama.cli.init import init
 from obsillama.cli.scan import scan
 from obsillama.cli.analyze import analyze
+from obsillama.cli.review import review
 
 # Enregistrer les commandes
 cli.add_command(init)
 cli.add_command(scan)
 cli.add_command(analyze)
+cli.add_command(review)
 
 # Les prochaines commandes seront ajoutées ici :
-# from obsillama.cli.review import review
 # from obsillama.cli.embed import embed
 # etc.
-# cli.add_command(review)
 # cli.add_command(embed)
 # etc.
 

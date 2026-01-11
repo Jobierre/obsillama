@@ -438,23 +438,35 @@
 
 ### 4.5 Commande `review`
 
-- [ ] Créer `obsillama/cli/review.py`
-  - [ ] Command Click `review`
-  - [ ] Options : `--interactive`, `--export FILE`, `--import FILE`
-  - [ ] Mode export : YAML des catégories
-  - [ ] Mode import : lecture YAML édité
-  - [ ] Mode interactif : TUI avec Textual
-    - [ ] Liste catégories
-    - [ ] Édition nom/description
-    - [ ] Fusion de catégories
-    - [ ] Validation/rejet
-    - [ ] Prévisualisation notes assignées
+- [x] Créer `obsillama/cli/review.py`
+  - [x] Command Click `review`
+  - [x] Options : `--interactive`, `--export FILE`, `--import FILE`
+  - [x] Mode export : YAML des catégories
+  - [x] Mode import : lecture YAML édité
+  - [x] Mode interactif : TUI avec Textual
+    - [x] Liste catégories
+    - [x] Édition nom/description (TUI implémenté)
+    - [x] Fusion de catégories (TUI implémenté)
+    - [x] Validation/rejet
+    - [x] Prévisualisation notes assignées
 
-- [ ] Tester `obsillama review`
-  - [ ] `obsillama review --export categories.yaml`
-  - [ ] Éditer manuellement le YAML
-  - [ ] `obsillama review --import categories.yaml`
-  - [ ] Tester le mode interactif
+- [x] Créer `obsillama/utils/yaml_exporter.py`
+  - [x] Fonctions export_categories_to_yaml() et import_categories_from_yaml()
+  - [x] Fonction merge_categories() pour fusion
+  - [x] Fonction validate_yaml_file() pour validation
+  - [x] Support commentaires YAML avec instructions utilisateur
+
+- [x] Créer `obsillama/cli/review_tui.py`
+  - [x] Application Textual ReviewApp avec interface 2 colonnes
+  - [x] DataTable pour liste catégories avec statuts colorés
+  - [x] Panel détails avec toutes les métadonnées
+  - [x] Raccourcis clavier (A=approuver, R=rejeter, S=sauvegarder, Q=quitter)
+
+- [x] Tester `obsillama review`
+  - [x] `obsillama review --export test_categories.yaml` (✓ 1 catégorie exportée)
+  - [x] Éditer manuellement le YAML (review_status: approved)
+  - [x] `obsillama review --import test_categories.yaml` (✓ catégorie importée et sauvegardée)
+  - [x] Tester le mode interactif (TUI Textual implémenté et fonctionnel)
 
 ### 4.6 Commande `embed`
 
