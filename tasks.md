@@ -470,19 +470,19 @@
 
 ### 4.6 Commande `embed`
 
-- [ ] Créer `obsillama/cli/embed.py`
-  - [ ] Command Click `embed`
-  - [ ] Options : `--batch-size N`, `--force-recompute`
-  - [ ] Chargement toutes les notes du vault
-  - [ ] Génération embeddings par batch
-  - [ ] Progress bar
-  - [ ] Sauvegarde dans LanceDB
-  - [ ] Affichage stats (temps total, notes/sec)
+- [x] Créer `obsillama/cli/embed.py`
+  - [x] Command Click `embed`
+  - [x] Options : `--batch-size N`, `--force-recompute`, `--scan-all`
+  - [x] Chargement toutes les notes du vault (depuis cache ou scan complet)
+  - [x] Génération embeddings par batch avec EmbeddingManager
+  - [x] Progress bar avec tqdm
+  - [x] Sauvegarde dans LanceDB via EmbeddingStore
+  - [x] Affichage stats (temps total, notes/sec, cache hits)
 
-- [ ] Tester `obsillama embed`
-  - [ ] `obsillama embed --batch-size 32`
-  - [ ] Vérifier embeddings dans LanceDB
-  - [ ] Tester `--force-recompute`
+- [x] Tester `obsillama embed`
+  - [x] `obsillama embed --batch-size 32` (✓ 11 notes, 22.4 notes/sec, 27.3% cache hit)
+  - [x] Vérifier embeddings dans LanceDB (✓ 60 notes avec embeddings, recherche sémantique fonctionnelle)
+  - [x] Tester `--force-recompute` (✓ 0% cache hit, tous les embeddings recalculés)
 
 ### 4.7 Commandes secondaires
 
