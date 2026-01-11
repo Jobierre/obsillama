@@ -486,18 +486,21 @@
 
 ### 4.7 Commandes secondaires
 
-- [ ] Créer `obsillama/cli/query.py`
-  - [ ] Command `query` pour recherche sémantique
-  - [ ] Options : `--category`, `--limit`
+- [x] Créer `obsillama/cli/query.py`
+  - [x] Command `query` pour recherche sémantique
+  - [x] Options : `--category`, `--limit`, `--threshold`, `--folder`, `--min-words`, `--show-content`
 
-- [ ] Créer `obsillama/cli/stats.py`
-  - [ ] Command `stats`
-  - [ ] Statistiques vault, catégories, embeddings
-  - [ ] Graphiques ASCII avec rich
+- [x] Créer `obsillama/cli/stats.py`
+  - [x] Command `stats`
+  - [x] Statistiques vault, catégories, embeddings, GraphRAG
+  - [x] Graphiques ASCII avec rich (barres de progression)
+  - [x] Options : `--vault`, `--categories`, `--embeddings`, `--graphrag`, `--all`
 
-- [ ] Tester les commandes
-  - [ ] `obsillama query "self-hosting docker"`
-  - [ ] `obsillama stats --categories`
+- [x] Tester les commandes
+  - [x] `obsillama query "3D modeling blender" --limit 5` (✓ 5 résultats, tableau avec scores)
+  - [x] `obsillama query "docker container" --show-content` (✓ affiche extraits de 200 chars)
+  - [x] `obsillama stats --vault` (✓ stats vault + top 10 dossiers et tags avec graphiques ASCII)
+  - [x] `obsillama stats --all` (✓ toutes les stats : vault, catégories, embeddings, GraphRAG)
 
 ---
 
