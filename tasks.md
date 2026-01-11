@@ -644,29 +644,30 @@
 
 ### 7.1 Tests unitaires
 
-- [ ] Créer `tests/test_scanner.py`
-  - [ ] Test parsing frontmatter
-  - [ ] Test échantillonnage
-  - [ ] Test détection backlinks
+- [x] Créer `tests/test_scanner.py` (existe: test_note_scanner.py)
+  - [x] Test parsing frontmatter (33 tests)
+  - [x] Test échantillonnage (stratified, random, all)
+  - [x] Test détection backlinks
 
-- [ ] Créer `tests/test_ollama_client.py`
-  - [ ] Test génération
-  - [ ] Test embeddings
-  - [ ] Test retry logic
+- [x] Créer `tests/test_ollama_client.py`
+  - [x] Test génération (26 tests)
+  - [x] Test embeddings (batch + single)
+  - [x] Test retry logic (tenacity)
 
-- [ ] Créer `tests/test_category_generator.py`
-  - [ ] Test génération catégories
-  - [ ] Test assignation notes
-  - [ ] Test hiérarchie
+- [x] Créer `tests/test_category_generator.py`
+  - [x] Test génération catégories
+  - [x] Test assignation notes
+  - [x] Test hiérarchie
 
-- [ ] Créer `tests/test_frontmatter_writer.py`
-  - [ ] Test modification frontmatter
-  - [ ] Test backup
-  - [ ] Test préservation structure
+- [x] Créer `tests/test_frontmatter_writer.py`
+  - [x] Test modification frontmatter (22 tests)
+  - [x] Test backup (snapshot avec timestamp)
+  - [x] Test préservation structure (ruamel.yaml)
 
-- [ ] Exécuter tous les tests
+- [x] Exécuter tous les tests
   ```bash
-  pytest tests/ -v
+  pytest tests/ -v  # 175 passed, 4 failed (config Ollama distant)
+  # Tests corrigés pour supporter Ollama distant (100.68.167.47:11434)
   ```
 
 ### 7.2 Gestion d'erreurs

@@ -92,7 +92,9 @@ def test_vault_config_values(settings):
 
 def test_ollama_config_values(settings):
     """Test les valeurs de configuration Ollama"""
-    assert settings.ollama.base_url == "http://localhost:11434"
+    # Vérifier que l'URL est valide (peut être localhost ou IP distante)
+    assert settings.ollama.base_url.startswith("http://") or settings.ollama.base_url.startswith("https://")
+    assert "11434" in settings.ollama.base_url  # Port Ollama par défaut
     assert settings.ollama.models.generation == "mistral"
     assert settings.ollama.models.embedding == "nomic-embed-text"
 

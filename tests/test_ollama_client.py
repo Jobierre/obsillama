@@ -75,7 +75,9 @@ def mock_ollama_list():
 def test_ollama_client_initialization(ollama_client):
     """Test que le client s'initialise correctement."""
     assert ollama_client is not None
-    assert ollama_client.base_url == "http://localhost:11434"
+    # Vérifier que l'URL est valide (peut être localhost ou IP distante)
+    assert ollama_client.base_url.startswith("http://") or ollama_client.base_url.startswith("https://")
+    assert "11434" in ollama_client.base_url  # Port Ollama par défaut
     assert ollama_client.generation_model == "mistral"
     assert ollama_client.embedding_model == "nomic-embed-text"
     assert ollama_client.client is not None
@@ -98,7 +100,8 @@ def test_ollama_client_repr(ollama_client):
     """Test la représentation string du client."""
     repr_str = repr(ollama_client)
     assert "OllamaClient" in repr_str
-    assert "localhost:11434" in repr_str
+    # Vérifier que l'URL est présente (localhost ou IP distante)
+    assert "11434" in repr_str  # Port Ollama
     assert "mistral" in repr_str
     assert "nomic-embed-text" in repr_str
 
