@@ -341,17 +341,28 @@
 
 ### 4.1 Infrastructure CLI
 
-- [ ] Créer `obsillama/__main__.py`
-  - [ ] Point d'entrée pour `python -m obsillama`
+- [x] Créer `obsillama/__main__.py`
+  - [x] Point d'entrée pour `python -m obsillama`
+  - [x] Auto-envvar prefix OBSILLAMA
 
-- [ ] Créer `obsillama/cli/commands.py`
-  - [ ] Groupe Click principal
-  - [ ] Configuration logging
-  - [ ] Chargement config globale
+- [x] Créer `obsillama/cli/commands.py`
+  - [x] Groupe Click principal avec décorateurs
+  - [x] Classe ObsillamaContext pour contexte partagé
+  - [x] Configuration logging avec RichHandler
+  - [x] Chargement config globale avec gestion erreurs
+  - [x] Support --config et --verbose flags
+  - [x] Version command (--version)
+  - [x] Help formaté avec workflow typique
 
-- [ ] Créer `obsillama/utils/progress.py`
-  - [ ] Fonctions helper pour progress bars (rich)
-  - [ ] Logging formaté avec rich.console
+- [x] Créer `obsillama/utils/progress.py`
+  - [x] Fonctions helper pour progress bars (create_progress, track_progress)
+  - [x] Affichage de tableaux (create_table, print_table)
+  - [x] Messages formatés (success, error, warning, info, step)
+  - [x] Panels et sections (print_panel, print_header)
+  - [x] Statistiques et résumés (print_stats, print_summary)
+  - [x] Interactions utilisateur (confirm, prompt)
+  - [x] Formatters utilitaires (size, duration, percentage)
+  - [x] Tests complets avec test_cli_helpers.py (tous passent)
 
 ### 4.2 Commande `init`
 
