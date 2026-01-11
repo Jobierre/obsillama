@@ -484,6 +484,37 @@ class NoteScanner:
 
         return modified_files
 
+    def detect_deleted_notes(self, cached_notes: List[Note]) -> List[Note]:
+        """
+        Détecte les notes supprimées (présentes dans le cache mais plus dans le vault).
+
+        Args:
+            cached_notes: Liste des notes en cache
+
+        Returns:
+            List[Note]: Notes qui ont été supprimées du vault
+        """
+        # Scanner le vault pour obtenir tous les fichiers existants
+        all_files = self.scan_vault()
+
+        # Créer un set des IDs actuels dans le vault
+        current_ids = set()
+        for file_path in all_files:
+            relative_path = file_path.relative_to(self.vault_path)
+            note_id = self._generate_note_id(str(relative_path))
+            current_ids.add(note_id)
+
+        # Trouver les notes en cache qui ne sont plus dans le vault
+        deleted_notes = []
+
+        for note in cached_notes:
+            if note.id not in current_ids:
+                deleted_notes.append(note)
+
+        logger.info(f"Détection: {len(deleted_notes)} notes supprimées")
+
+        return deleted_notes
+
     def __repr__(self) -> str:
         """Représentation string du scanner."""
         return (

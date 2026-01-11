@@ -484,6 +484,66 @@ def test_detect_new_notes(temp_vault, tmp_path):
     assert any("New Note.md" in str(f) for f in new_files)
 
 
+def test_detect_modified_notes(temp_vault, tmp_path):
+    """Test détection de notes modifiées."""
+    import time
+
+    cache_path = tmp_path / "test_cache.json"
+
+    scanner = NoteScanner(
+        vault_path=str(temp_vault),
+        exclude_folders=[".obsidian"],
+        cache_path=str(cache_path),
+    )
+
+    # Scanner et cacher toutes les notes
+    notes = scanner.scan_and_parse(strategy="all")
+    scanner.save_cache(notes)
+
+    # Attendre un peu pour avoir une différence de timestamp
+    time.sleep(0.1)
+
+    # Modifier une note existante
+    note_file = temp_vault / "Note 1.md"
+    original_content = note_file.read_text()
+    note_file.write_text(original_content + "\n\nNouveau contenu ajouté!")
+
+    # Détecter les notes modifiées
+    loaded_notes = scanner.load_cache()
+    modified_files = scanner.detect_modified_notes(loaded_notes)
+
+    # Doit trouver la note modifiée
+    assert len(modified_files) >= 1
+    assert any("Note 1.md" in str(f) for f in modified_files)
+
+
+def test_detect_deleted_notes(temp_vault, tmp_path):
+    """Test détection de notes supprimées."""
+    cache_path = tmp_path / "test_cache.json"
+
+    scanner = NoteScanner(
+        vault_path=str(temp_vault),
+        exclude_folders=[".obsidian"],
+        cache_path=str(cache_path),
+    )
+
+    # Scanner et cacher toutes les notes
+    notes = scanner.scan_and_parse(strategy="all")
+    scanner.save_cache(notes)
+
+    # Supprimer une note
+    note_file = temp_vault / "Note 2.md"
+    note_file.unlink()  # Supprimer le fichier
+
+    # Détecter les notes supprimées
+    loaded_notes = scanner.load_cache()
+    deleted_notes = scanner.detect_deleted_notes(loaded_notes)
+
+    # Doit trouver la note supprimée
+    assert len(deleted_notes) >= 1
+    assert any("Note 2" in note.title for note in deleted_notes)
+
+
 def test_generate_note_id(temp_vault):
     """Test génération d'ID unique."""
     scanner = NoteScanner(vault_path=str(temp_vault))

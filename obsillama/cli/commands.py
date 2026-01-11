@@ -216,6 +216,7 @@ from obsillama.cli.embed import embed
 from obsillama.cli.query import query
 from obsillama.cli.stats import stats
 from obsillama.cli.apply import apply
+from obsillama.cli.ameliorate import ameliorate
 
 # Enregistrer les commandes
 cli.add_command(init)
@@ -226,6 +227,7 @@ cli.add_command(embed)
 cli.add_command(query)
 cli.add_command(stats)
 cli.add_command(apply)
+cli.add_command(ameliorate)
 
 
 if __name__ == "__main__":
