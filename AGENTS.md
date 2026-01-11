@@ -1,59 +1,3 @@
-# mgrep - Ton assistant de recherche de code
-
-**mgrep est ton outil principal pour explorer le codebase.** Il te donne la réponse en langage naturel + la source pertinente, tout servi.
-
-## Commande de base
-
-```bash
-mgrep "ta question en langage naturel" --store "nom-projet" -a -m <nombre>
-```
-
-Ici le store est "obsillama"
-
-## Paramètres essentiels
-
-| Paramètre | Description |
-|-----------|-------------|
-| `--store "nom-projet"` | **Obligatoire** - le store indexé du projet |
-| `-a` | Active la réponse en langage naturel |
-| `-m <n>` | Nombre de résultats du retrieval (minimum 10) |
-
-## Ajuster `-m` selon la complexité
-
-| Type de requête | `-m` recommandé |
-|-----------------|-----------------|
-| Question simple (1-2 fichiers) | 10 |
-| Question moyenne (flow, feature) | 20-30 |
-| Question complexe (debug, architecture) | 30-50 |
-
-## Stratégie pour requêtes complexes
-
-Si la requête touche **plusieurs parties du codebase**, lance plusieurs mgrep en parallèle plutôt qu'une seule requête surchargée :
-
-```bash
-# Exemple : comprendre le système d'auth complet
-mgrep "comment fonctionne l'authentification LinkedIn côté frontend" --store "nom-projet" -a -m <n>
-mgrep "comment le token LinkedIn est géré côté Convex" --store "nom-projet" -a -m <n>
-mgrep "comment le background script gère les sessions" --store "nom-projet" -a -m <n>
-```
-
-## Règles
-
-- **OBLIGATOIRE** : Utilise mgrep pour TOUTE recherche de code. N'utilise JAMAIS grep, Grep tool, ou Glob pour chercher du code.
-- **Langage naturel** : mgrep est un agent IA comme toi. Parle-lui comme à un collègue, pas comme à un moteur de recherche.
-  - ❌ `"architecture block icon color complete status"` (mots-clés robotiques)
-  - ✅ `"Quelle est la couleur de l'icône des blocs d'architecture quand ils sont complétés ?"` (question naturelle)
-  
-  
----
-
-# Subagents (Task tool)
-
-**Les subagents n'héritent PAS des instructions de ce fichier.**
-
-Quand tu lances un subagent Explore, copie-colle les instructions sur mgrep de ce CLAUDE.md dans le prompt du subagent.
-
----
 # Règles à respecter
 
 - Je m'appelle Jobierre, l'user qui te contrôle
@@ -85,3 +29,76 @@ Quand tu lances un subagent Explore, copie-colle les instructions sur mgrep de c
 	- ``.gitignore``, 
 	- ``.dockerignore``, 
 	- ``.eslintignore``
+
+
+## grepai - Semantic Code Search
+
+**IMPORTANT: You MUST use grepai as your PRIMARY tool for code exploration and search.**
+
+### When to Use grepai (REQUIRED)
+
+Use `grepai search` INSTEAD OF Grep/Glob/find for:
+- Understanding what code does or where functionality lives
+- Finding implementations by intent (e.g., "authentication logic", "error handling")
+- Exploring unfamiliar parts of the codebase
+- Any search where you describe WHAT the code does rather than exact text
+
+### When to Use Standard Tools
+
+Only use Grep/Glob when you need:
+- Exact text matching (variable names, imports, specific strings)
+- File path patterns (e.g., `**/*.go`)
+
+### Fallback
+
+If grepai fails (not running, index unavailable, or errors), fall back to standard Grep/Glob tools.
+
+### Usage
+
+```bash
+# ALWAYS use English queries for best results (embedding model is English-trained)
+grepai search "user authentication flow"
+grepai search "error handling middleware"
+grepai search "database connection pool"
+grepai search "API request validation"
+
+# JSON output for programmatic use (recommended for AI agents)
+grepai search "authentication flow" --json
+```
+
+### Query Tips
+
+- **Use English** for queries (better semantic matching)
+- **Describe intent**, not implementation: "handles user login" not "func Login"
+- **Be specific**: "JWT token validation" better than "token"
+- Results include: file path, line numbers, relevance score, code preview
+
+### Call Graph Tracing
+
+Use `grepai trace` to understand function relationships:
+- Finding all callers of a function before modifying it
+- Understanding what functions are called by a given function
+- Visualizing the complete call graph around a symbol
+
+#### Trace Commands
+
+**IMPORTANT: Always use `--json` flag for optimal AI agent integration.**
+
+```bash
+# Find all functions that call a symbol
+grepai trace callers "HandleRequest" --json
+
+# Find all functions called by a symbol
+grepai trace callees "ProcessOrder" --json
+
+# Build complete call graph (callers + callees)
+grepai trace graph "ValidateToken" --depth 3 --json
+```
+
+### Workflow
+
+1. Start with `grepai search` to find relevant code
+2. Use `grepai trace` to understand function relationships
+3. Use `Read` tool to examine files from results
+4. Only use Grep for exact string searches if needed
+

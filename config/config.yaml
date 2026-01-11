@@ -18,7 +18,8 @@ vault:
 # Configuration Ollama (LLM local)
 ollama:
   # URL de base de l'API Ollama
-  base_url: "http://100.68.167.47:11434"
+  #base_url: "http://100.68.167.47:11434"
+  base_url: "http://localhost:11434"
 
   # Modèles à utiliser
   models:

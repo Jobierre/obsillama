@@ -96,3 +96,4 @@ htmlcov/
 dmypy.json
 .pyre/
 claude.md
+.grepai/
