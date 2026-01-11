@@ -388,18 +388,26 @@
 
 ### 4.3 Commande `scan`
 
-- [ ] Créer `obsillama/cli/scan.py`
-  - [ ] Command Click `scan`
-  - [ ] Options : `--all`, `--sample N`, `--percent P`
-  - [ ] Appel NoteScanner
-  - [ ] Progress bar pendant scan
-  - [ ] Cache résultats dans `data/cache/scanned_notes.json`
-  - [ ] Affichage stats (nombre notes, tags trouvés, etc.)
+- [x] Créer `obsillama/cli/scan.py`
+  - [x] Command Click `scan` avec décorateur pass_context
+  - [x] Options : `--all`, `--sample N`, `--percent P`, `--force`, `--no-cache`, `--top N`
+  - [x] Appel NoteScanner avec stratégies d'échantillonnage
+  - [x] Affichage 4 étapes avec print_step (1/4, 2/4, 3/4, 4/4)
+  - [x] Détection cache existant avec panel d'avertissement
+  - [x] Cache résultats dans `data/cache/scanned_notes.json`
+  - [x] Calcul statistiques complètes (mots, tags, backlinks, dossiers)
+  - [x] Affichage stats avec print_stats
+  - [x] Top tags et dossiers avec print_table (Counter)
+  - [x] Résumé et prochaines étapes avec panels
+  - [x] Gestion erreurs avec messages clairs
 
-- [ ] Tester `obsillama scan`
-  - [ ] `obsillama scan --percent 15`
-  - [ ] Vérifier le cache créé
-  - [ ] `obsillama scan --sample 50`
+- [x] Tester `obsillama scan`
+  - [x] `obsillama scan --percent 2` (✓ 11 notes parsées, cache sauvegardé)
+  - [x] `obsillama scan` avec cache existant (✓ affiche stats du cache)
+  - [x] `obsillama scan --force --sample 20 --no-cache` (✓ 20 notes aléatoires, pas de cache)
+  - [x] Vérifier le cache créé dans data/cache/scanned_notes.json (✓ validé)
+  - [x] Vérifier statistiques affichées (✓ mots, tags, dossiers, backlinks)
+  - [x] Vérifier top items (✓ tags et dossiers triés par fréquence)
 
 ### 4.4 Commande `analyze`
 
