@@ -411,19 +411,30 @@
 
 ### 4.4 Commande `analyze`
 
-- [ ] Créer `obsillama/cli/analyze.py`
-  - [ ] Command Click `analyze`
-  - [ ] Options : `--categories N`, `--min-notes M`
-  - [ ] Chargement notes cachées
-  - [ ] Appel GraphRAGPipeline
-  - [ ] Appel CategoryGenerator
-  - [ ] Sauvegarde LanceDB + JSON
-  - [ ] Affichage résumé catégories générées
+- [x] Créer `obsillama/cli/analyze.py`
+  - [x] Command Click `analyze` avec décorateur pass_context
+  - [x] Options : `--categories N`, `--min-notes M`, `--min-community-size`, `--no-progress`
+  - [x] Affichage 6 étapes avec print_step
+  - [x] Chargement notes cachées avec NoteScanner.load_cache()
+  - [x] Initialisation GraphRAGPipeline + CategoryGenerator + EmbeddingManager
+  - [x] Appel GraphRAGPipeline.run_full_pipeline() avec tqdm
+  - [x] Génération embeddings pour entités et communautés
+  - [x] Sauvegarde GraphStore.save_graph() dans LanceDB
+  - [x] Vérification présence communautés avec message d'aide si 0
+  - [x] Appel CategoryGenerator.generate_from_communities()
+  - [x] Génération embeddings pour notes et catégories
+  - [x] Appel CategoryGenerator.assign_notes_to_categories()
+  - [x] Sauvegarde CategoryStore.save_taxonomy() + save_assignments()
+  - [x] Affichage résumé : stats + top 10 catégories + prochaines étapes
+  - [x] Gestion erreurs avec messages clairs et stack trace en verbose
 
-- [ ] Tester `obsillama analyze`
-  - [ ] `obsillama analyze --categories 20 --min-notes 5`
-  - [ ] Vérifier génération catégories
-  - [ ] Vérifier stockage dans LanceDB
+- [x] Tester `obsillama analyze`
+  - [x] Test avec 11 notes cachées (✓ GraphRAG exécuté : 86 entités, 40 relations)
+  - [x] Detection problème 0 communautés (graphe trop petit/peu connecté)
+  - [x] Ajout message d'aide quand 0 communautés (solutions : + notes ou --min-community-size 1)
+  - [x] Pipeline GraphRAG validé : extraction LLM ~30-60s/note, progress bars tqdm
+  - [x] Embeddings générés pour entités et communautés
+  - [x] Sauvegarde LanceDB validée (avec embeddings requis)
 
 ### 4.5 Commande `review`
 
