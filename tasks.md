@@ -551,26 +551,26 @@
 
 ### 5.3 Commande `apply`
 
-- [ ] Créer `obsillama/cli/apply.py`
-  - [ ] Command Click `apply`
-  - [ ] Options : `--dry-run`, `--backup`, `--tags-only`, `--new-only`
-  - [ ] Mode dry-run : affiche diff sans modifier
-  - [ ] Chargement catégories approuvées
-  - [ ] Chargement assignations
-  - [ ] Création backup snapshot
-  - [ ] Application batch avec progress bar
-  - [ ] Gestion erreurs (continue sur échec individuel)
-  - [ ] Affichage résumé (succès/échecs)
+- [x] Créer `obsillama/cli/apply.py`
+  - [x] Command Click `apply`
+  - [x] Options : `--dry-run`, `--backup`, `--tags-only`, `--new-only`
+  - [x] Mode dry-run : affiche diff sans modifier
+  - [x] Chargement catégories approuvées
+  - [x] Chargement assignations
+  - [x] Création backup snapshot
+  - [x] Application batch avec progress bar
+  - [x] Gestion erreurs (continue sur échec individuel)
+  - [x] Affichage résumé (succès/échecs)
 
-- [ ] Tester `obsillama apply`
-  - [ ] `obsillama apply --dry-run`
-    - [ ] Vérifier preview des changements
-  - [ ] `obsillama apply --backup`
-    - [ ] Appliquer sur 5 notes de test
-    - [ ] Vérifier modifications frontmatter
-    - [ ] Vérifier backups créés
-  - [ ] Ouvrir Obsidian et vérifier les tags dans graph view
-  - [ ] Tester rollback si problème
+- [x] Tester `obsillama apply`
+  - [x] `obsillama apply --dry-run`
+    - [x] Vérifier preview des changements
+  - [x] `obsillama apply --backup`
+    - [x] Appliquer sur 5 notes de test
+    - [x] Vérifier modifications frontmatter
+    - [x] Vérifier backups créés
+  - [~] Ouvrir Obsidian et vérifier les tags dans graph view
+  - [~] Tester rollback si problème
 
 ---
 

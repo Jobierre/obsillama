@@ -215,6 +215,7 @@ from obsillama.cli.review import review
 from obsillama.cli.embed import embed
 from obsillama.cli.query import query
 from obsillama.cli.stats import stats
+from obsillama.cli.apply import apply
 
 # Enregistrer les commandes
 cli.add_command(init)
@@ -224,12 +225,7 @@ cli.add_command(review)
 cli.add_command(embed)
 cli.add_command(query)
 cli.add_command(stats)
-
-# Les prochaines commandes seront ajoutées ici :
-# from obsillama.cli.apply import apply
-# etc.
-# cli.add_command(apply)
-# etc.
+cli.add_command(apply)
 
 
 if __name__ == "__main__":
