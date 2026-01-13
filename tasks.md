@@ -695,26 +695,26 @@
 
 ### 7.4 Documentation
 
-- [ ] Créer `README.md`
-  - [ ] Description projet
-  - [ ] Installation
-  - [ ] Configuration
-  - [ ] Utilisation (exemples commandes)
-  - [ ] Architecture
-  - [ ] Troubleshooting
+- [x] Créer `README.md`
+  - [x] Description projet
+  - [x] Installation
+  - [x] Configuration
+  - [x] Utilisation (exemples commandes)
+  - [x] Architecture
+  - [x] Troubleshooting
 
-- [ ] Créer `docs/user_guide.md`
-  - [ ] Guide utilisateur complet
-  - [ ] Workflow recommandé
-  - [ ] Astuces et bonnes pratiques
+- [x] Créer `docs/user_guide.md`
+  - [x] Guide utilisateur complet
+  - [x] Workflow recommandé
+  - [x] Astuces et bonnes pratiques
 
-- [ ] Créer `docs/architecture.md`
-  - [ ] Architecture technique
-  - [ ] Diagrammes
-  - [ ] Décisions de design
+- [x] Créer `docs/architecture.md`
+  - [x] Architecture technique
+  - [x] Diagrammes
+  - [x] Décisions de design
 
-- [ ] Créer `docs/api_reference.md`
-  - [ ] Documentation API des classes principales
+- [x] Créer `docs/api_reference.md`
+  - [x] Documentation API des classes principales
 
 ### 7.5 Optimisation performance
 
