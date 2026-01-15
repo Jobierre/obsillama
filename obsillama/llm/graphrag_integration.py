@@ -11,8 +11,10 @@ Ce module implémente le pipeline GraphRAG complet pour :
 import json
 import logging
 import hashlib
+import threading
 from typing import List, Dict, Any, Tuple, Optional
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import igraph as ig
 from tqdm import tqdm
@@ -146,6 +148,9 @@ class GraphRAGPipeline:
         self.entities_cache: Dict[str, GraphEntity] = {}
         self.relationships_cache: Dict[str, GraphRelationship] = {}
 
+        # Lock pour protéger l'accès concurrent aux caches
+        self._cache_lock = threading.Lock()
+
         logger.info(
             f"GraphRAGPipeline initialisé "
             f"(min_community_size={min_community_size}, "
@@ -205,22 +210,23 @@ class GraphRAGPipeline:
 
                 entity_id = generate_entity_id(entity_name, entity_type.value)
 
-                # Vérifier si l'entité existe déjà
-                if entity_id in self.entities_cache:
-                    entity = self.entities_cache[entity_id]
-                    entity.add_mention(note.id)
-                else:
-                    # Créer nouvelle entité
-                    entity = GraphEntity(
-                        id=entity_id,
-                        name=entity_name,
-                        type=entity_type,
-                        description=entity_data.get("description", ""),
-                        importance_score=entity_data.get("importance", 0.5),
-                        source_note_ids=[note.id],
-                        mention_count=1,
-                    )
-                    self.entities_cache[entity_id] = entity
+                # Vérifier si l'entité existe déjà (protégé par lock pour thread-safety)
+                with self._cache_lock:
+                    if entity_id in self.entities_cache:
+                        entity = self.entities_cache[entity_id]
+                        entity.add_mention(note.id)
+                    else:
+                        # Créer nouvelle entité
+                        entity = GraphEntity(
+                            id=entity_id,
+                            name=entity_name,
+                            type=entity_type,
+                            description=entity_data.get("description", ""),
+                            importance_score=entity_data.get("importance", 0.5),
+                            source_note_ids=[note.id],
+                            mention_count=1,
+                        )
+                        self.entities_cache[entity_id] = entity
 
                 entities.append(entity)
 
@@ -308,23 +314,24 @@ class GraphRAGPipeline:
                 # Générer ID
                 rel_id = generate_relationship_id(source_id, target_id, rel_type.value)
 
-                # Vérifier si existe déjà
-                if rel_id in self.relationships_cache:
-                    relationship = self.relationships_cache[rel_id]
-                    relationship.add_evidence(note.id)
-                else:
-                    # Créer nouvelle relation
-                    relationship = GraphRelationship(
-                        id=rel_id,
-                        source_entity_id=source_id,
-                        target_entity_id=target_id,
-                        relationship_type=rel_type,
-                        description=rel_data.get("description", ""),
-                        confidence=rel_data.get("confidence", 0.8),
-                        source_note_ids=[note.id],
-                        evidence_count=1,
-                    )
-                    self.relationships_cache[rel_id] = relationship
+                # Vérifier si existe déjà (protégé par lock pour thread-safety)
+                with self._cache_lock:
+                    if rel_id in self.relationships_cache:
+                        relationship = self.relationships_cache[rel_id]
+                        relationship.add_evidence(note.id)
+                    else:
+                        # Créer nouvelle relation
+                        relationship = GraphRelationship(
+                            id=rel_id,
+                            source_entity_id=source_id,
+                            target_entity_id=target_id,
+                            relationship_type=rel_type,
+                            description=rel_data.get("description", ""),
+                            confidence=rel_data.get("confidence", 0.8),
+                            source_note_ids=[note.id],
+                            evidence_count=1,
+                        )
+                        self.relationships_cache[rel_id] = relationship
 
                 relationships.append(relationship)
 
@@ -334,6 +341,27 @@ class GraphRAGPipeline:
 
         logger.debug(f"  → {len(relationships)} relations extraites")
         return relationships
+
+    def _process_single_note(self, note: Note) -> None:
+        """
+        Traite une note complète : extraction entités + relations.
+
+        Cette méthode est thread-safe et peut être appelée en parallèle.
+        Les résultats sont stockés dans les caches protégés par lock.
+
+        Args:
+            note: Note à traiter
+        """
+        try:
+            # Extraire entités
+            entities = self.extract_entities(note)
+
+            # Extraire relations si on a des entités
+            if entities:
+                self.extract_relationships(note, entities)
+
+        except Exception as e:
+            logger.error(f"Erreur traitement note {note.id} ({note.title}): {e}")
 
     def build_graph(
         self, entities: List[GraphEntity], relationships: List[GraphRelationship]
@@ -568,17 +596,38 @@ class GraphRAGPipeline:
         self.entities_cache = {}
         self.relationships_cache = {}
 
-        # Phase 1 : Extraction entités et relations
+        # Phase 1 : Extraction entités et relations (parallélisée)
         logger.info("Phase 1/4 : Extraction des entités et relations")
-        iterator = tqdm(notes, desc="Analyse des notes") if show_progress else notes
 
-        for note in iterator:
-            # Extraire entités
-            entities = self.extract_entities(note)
+        # Paralléliser l'extraction avec ThreadPoolExecutor (max 10 workers)
+        max_workers = min(10, len(notes)) if notes else 1
 
-            # Extraire relations
-            if entities:
-                relationships = self.extract_relationships(note, entities)
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # Soumettre toutes les tâches
+            futures = {
+                executor.submit(self._process_single_note, note): note
+                for note in notes
+            }
+
+            # Afficher la progression et récupérer les résultats
+            if show_progress and notes:
+                pbar = tqdm(total=len(notes), desc="Analyse des notes")
+                for future in as_completed(futures):
+                    try:
+                        future.result()  # Récupère le résultat (ou lève l'exception)
+                    except Exception as e:
+                        note = futures[future]
+                        logger.error(f"Erreur traitement note {note.id}: {e}")
+                    pbar.update(1)
+                pbar.close()
+            else:
+                # Sans progress bar, juste attendre la fin
+                for future in as_completed(futures):
+                    try:
+                        future.result()
+                    except Exception as e:
+                        note = futures[future]
+                        logger.error(f"Erreur traitement note {note.id}: {e}")
 
         # Récupérer toutes les entités et relations
         all_entities = list(self.entities_cache.values())
@@ -599,14 +648,36 @@ class GraphRAGPipeline:
 
         # Phase 4 : Résumés des communautés
         logger.info("Phase 4/4 : Génération des résumés de communautés")
-        iterator = (
-            tqdm(communities, desc="Résumés communautés")
-            if show_progress
-            else communities
-        )
 
-        for community in iterator:
-            self.summarize_community(community, all_entities)
+        # Paralléliser les résumés avec ThreadPoolExecutor (max 5 workers)
+        max_workers = min(5, len(communities)) if communities else 1
+
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # Soumettre toutes les tâches
+            futures = {
+                executor.submit(self.summarize_community, community, all_entities): community
+                for community in communities
+            }
+
+            # Afficher la progression et récupérer les résultats
+            if show_progress and communities:
+                pbar = tqdm(total=len(communities), desc="Résumés communautés")
+                for future in as_completed(futures):
+                    try:
+                        future.result()  # Récupère le résultat (ou lève l'exception)
+                    except Exception as e:
+                        community = futures[future]
+                        logger.error(f"Erreur résumé communauté {community.id}: {e}")
+                    pbar.update(1)
+                pbar.close()
+            else:
+                # Sans progress bar, juste attendre la fin
+                for future in as_completed(futures):
+                    try:
+                        future.result()
+                    except Exception as e:
+                        community = futures[future]
+                        logger.error(f"Erreur résumé communauté {community.id}: {e}")
 
         logger.info(
             f"Pipeline GraphRAG terminé : "

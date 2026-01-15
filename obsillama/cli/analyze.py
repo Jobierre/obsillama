@@ -300,7 +300,7 @@ def analyze(
         # Embeddings des notes
         print_info(f"Génération des embeddings pour {len(notes)} notes...")
         notes_with_embeddings = embedding_manager.embed_notes(
-            notes, show_progress=not no_progress
+            notes, batch_size=32, show_progress=not no_progress
         )
 
         note_embeddings = [
