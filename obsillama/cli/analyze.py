@@ -7,6 +7,7 @@ Cette commande exécute le pipeline GraphRAG et génère les catégories.
 import sys
 from pathlib import Path
 from typing import Optional
+from datetime import datetime
 
 import click
 
@@ -18,6 +19,7 @@ from obsillama.core.category_generator import CategoryGenerator
 from obsillama.core.embedding_manager import EmbeddingManager
 from obsillama.storage.graph_store import GraphStore
 from obsillama.storage.category_store import CategoryStore
+from obsillama.models.note import Note
 from obsillama.utils.progress import (
     print_header,
     print_success,
@@ -304,13 +306,14 @@ def analyze(
     try:
         # Embeddings des notes
         print_info(f"Génération des embeddings pour {len(notes)} notes...")
-        notes_with_embeddings = embedding_manager.embed_notes(
-            notes, batch_size=32, show_progress=not no_progress
-        )
 
-        note_embeddings = [
-            note.embedding for note in notes_with_embeddings if note.embedding
-        ]
+        # Préparer les textes (titre + contenu)
+        note_texts = [f"{note.title}\n\n{note.content}" for note in notes]
+
+        # Générer les embeddings
+        note_embeddings = embedding_manager.generate_embeddings_batch(
+            note_texts, batch_size=32, show_progress=not no_progress
+        )
 
         if len(note_embeddings) != len(notes):
             print_warning(
@@ -318,6 +321,16 @@ def analyze(
             )
 
         print_success(f"{len(note_embeddings)} embeddings de notes générés")
+
+        # Mettre à jour les métadonnées des notes
+        notes_with_embeddings = []
+        for note in notes:
+            note_dict = note.model_dump()
+            note_dict["has_embedding"] = True
+            note_dict["embedding_model"] = embedding_manager.model_name
+            note_dict["embedding_date"] = datetime.now()
+            updated_note = Note(**note_dict)
+            notes_with_embeddings.append(updated_note)
 
         # Embeddings des catégories (description)
         print_info(f"Génération des embeddings pour {len(categories_list)} catégories...")
