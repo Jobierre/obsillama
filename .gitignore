@@ -95,5 +95,5 @@ htmlcov/
 .dmypy.json
 dmypy.json
 .pyre/
-claude.md
+#claude.md
 .grepai/

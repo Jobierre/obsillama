@@ -207,7 +207,7 @@ def analyze(
         )
 
         # Embeddings des communautés (résumé)
-        community_texts = [c.summary for c in communities] if communities else []
+        community_texts = [c.description for c in communities] if communities else []
         community_embeddings = (
             embedding_manager.generate_embeddings_batch(
                 community_texts, show_progress=False
