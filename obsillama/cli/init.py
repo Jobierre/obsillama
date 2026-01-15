@@ -154,7 +154,7 @@ def create_config_yaml(
             "embedding_dim": 768,
         },
         "processing": {
-            "num_workers": 4,
+            "num_workers": 8,
             "embedding_batch_size": 32,
             "note_batch_size": 50,
             "sampling": {

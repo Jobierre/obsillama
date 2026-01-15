@@ -129,11 +129,16 @@ def analyze(
 
         # GraphRAG Pipeline
         min_comm_size = min_community_size or ctx.config.graphrag.min_community_size
-        print_info(f"Configuration GraphRAG (min_community_size={min_comm_size})...")
+        num_workers = ctx.config.processing.num_workers
+        print_info(
+            f"Configuration GraphRAG (min_community_size={min_comm_size}, "
+            f"workers={num_workers})..."
+        )
         graphrag_pipeline = GraphRAGPipeline(
             ollama_client=ollama_client,
             min_community_size=min_comm_size,
             leiden_resolution=ctx.config.graphrag.resolution,
+            max_workers=num_workers,
         )
 
         # Category Generator

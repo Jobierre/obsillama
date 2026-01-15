@@ -129,6 +129,7 @@ class GraphRAGPipeline:
         min_community_size: int = 3,
         leiden_resolution: float = 1.0,
         max_entities_per_note: int = 20,
+        max_workers: int = 8,
     ):
         """
         Initialise le pipeline GraphRAG.
@@ -138,11 +139,13 @@ class GraphRAGPipeline:
             min_community_size: Taille minimum d'une communauté valide
             leiden_resolution: Paramètre de résolution de Leiden (plus élevé = plus de petites communautés)
             max_entities_per_note: Nombre maximum d'entités à extraire par note
+            max_workers: Nombre maximum de threads pour le traitement parallèle
         """
         self.client = ollama_client
         self.min_community_size = min_community_size
         self.leiden_resolution = leiden_resolution
         self.max_entities_per_note = max_entities_per_note
+        self.max_workers = max_workers
 
         # Caches
         self.entities_cache: Dict[str, GraphEntity] = {}
@@ -154,7 +157,8 @@ class GraphRAGPipeline:
         logger.info(
             f"GraphRAGPipeline initialisé "
             f"(min_community_size={min_community_size}, "
-            f"leiden_resolution={leiden_resolution})"
+            f"leiden_resolution={leiden_resolution}, "
+            f"max_workers={max_workers})"
         )
 
     def extract_entities(self, note: Note) -> List[GraphEntity]:
@@ -599,8 +603,8 @@ class GraphRAGPipeline:
         # Phase 1 : Extraction entités et relations (parallélisée)
         logger.info("Phase 1/4 : Extraction des entités et relations")
 
-        # Paralléliser l'extraction avec ThreadPoolExecutor (max 10 workers)
-        max_workers = min(10, len(notes)) if notes else 1
+        # Paralléliser l'extraction avec ThreadPoolExecutor
+        max_workers = min(self.max_workers, len(notes)) if notes else 1
 
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             # Soumettre toutes les tâches
@@ -649,10 +653,11 @@ class GraphRAGPipeline:
         # Phase 4 : Résumés des communautés
         logger.info("Phase 4/4 : Génération des résumés de communautés")
 
-        # Paralléliser les résumés avec ThreadPoolExecutor (max 5 workers)
-        max_workers = min(5, len(communities)) if communities else 1
+        # Paralléliser les résumés avec ThreadPoolExecutor
+        # Utiliser moins de workers que pour l'extraction (résumés plus longs)
+        max_workers_summary = min(max(2, self.max_workers // 2), len(communities)) if communities else 1
 
-        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        with ThreadPoolExecutor(max_workers=max_workers_summary) as executor:
             # Soumettre toutes les tâches
             futures = {
                 executor.submit(self.summarize_community, community, all_entities): community
