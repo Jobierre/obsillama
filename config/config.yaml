@@ -4,7 +4,7 @@
 # Configuration du vault Obsidian
 vault:
   # Chemin absolu vers le vault Obsidian
-  path: "/Users/jordanmirmand/Documents/Obsidian and CO/obsinote"
+  path: "/Users/jordanmirmand/Documents/Obsidian and CO/JobiVault"
 
   # Chemin pour les backups avant modification
   backup_path: ".obsillama_backups"
@@ -81,7 +81,7 @@ categorization:
     subcategory_threshold: 10  # notes
 
   # Préfixe pour les tags générés
-  tag_prefix: "AI-Category-"
+  tag_prefix: "AI-"
 
   # Langue des prompts et catégories
   language: "fr"
@@ -143,7 +143,7 @@ lancedb:
 # Configuration du traitement parallèle
 processing:
   # Nombre de workers pour le traitement parallèle
-  num_workers: 4
+  num_workers: 1
 
   # Taille des batchs pour les embeddings
   embedding_batch_size: 32
@@ -154,7 +154,7 @@ processing:
   # Stratégie d'échantillonnage par défaut
   sampling:
     # Stratégie: "random", "stratified", "all"
-    strategy: "stratified"
+    strategy: "random"
 
     # Pourcentage d'échantillonnage (15% par défaut)
     percentage: 15
