@@ -308,7 +308,24 @@ def analyze(
         print_info(f"Génération des embeddings pour {len(notes)} notes...")
 
         # Préparer les textes (titre + contenu)
-        note_texts = [f"{note.title}\n\n{note.content}" for note in notes]
+        # Tronquer à 6000 caractères pour éviter de dépasser la limite du modèle (~8192 tokens)
+        max_chars = 6000
+        note_texts = []
+        truncated_count = 0
+        for note in notes:
+            full_text = f"{note.title}\n\n{note.content}"
+            if len(full_text) > max_chars:
+                truncated_text = full_text[:max_chars] + "..."
+                note_texts.append(truncated_text)
+                truncated_count += 1
+            else:
+                note_texts.append(full_text)
+
+        if truncated_count > 0:
+            print_warning(
+                f"{truncated_count} notes tronquées à {max_chars} caractères "
+                f"(limite du modèle d'embedding)"
+            )
 
         # Générer les embeddings
         note_embeddings = embedding_manager.generate_embeddings_batch(
